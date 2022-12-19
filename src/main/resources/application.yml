@@ -1,0 +1,25 @@
+server:
+  port: 0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8091/eureka
+
+spring:
+  application:
+    name: eureka-direction-service
+  profiles:
+    active: ${PROFILE:dev}
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_SERVER:localhost}:${POSTGRES_PORT:5427}/${POSTGRES_DATABASE:social_network_backend_direction_service_postgres_db}
+    username: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:123}
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate.ddl-auto: update
+    show-sql: true
+
+feign:
+  circuitbreaker:
+    enabled: true
