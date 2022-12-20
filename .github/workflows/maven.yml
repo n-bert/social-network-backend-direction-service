@@ -9,15 +9,13 @@
 name: DirectionServiceActions
 
 on:
-
+  workflow_dispatch:
   pull_request:
     branches: [ "dev" ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -28,13 +26,9 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: mvn -B clean compile package -Dmaven.test.skip=true
-
-
   tests:
-
     runs-on: ubuntu-latest
     needs: [ build ]
-
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -48,3 +42,4 @@ jobs:
       - name: Publish Test Report
         if: ${{ always() }}
         uses: scacap/action-surefire-report@v1
+
